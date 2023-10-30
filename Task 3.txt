@@ -1,0 +1,221 @@
+import java.util.Scanner;
+
+class Book {
+    private int bookID;
+    private String title;
+    private String author;
+    private boolean available;
+
+    public Book(int bookID, String title, String author) {
+        this.bookID = bookID;
+        this.title = title;
+        this.author = author;
+        this.available = true;
+    }
+
+    // Getter and setter methods
+
+    public int getBookID() {
+        return bookID;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+}
+
+class Library {
+    private Book[] books;
+
+    public Library(int capacity) {
+        books = new Book[capacity];
+    }
+
+    public void addBook(Book book) {
+        for (int i = 0; i < books.length; i++) {
+            if (books[i] == null) {
+                books[i] = book;
+                System.out.println("Book added successfully!");
+                return;
+            }
+        }
+        System.out.println("Cannot add more books.");
+    }
+
+    public void displayBooks() {
+        System.out.println("List of Books in the Library:");
+        for (Book book : books) {
+            if (book != null) {
+                System.out.println("Book ID: " + book.getBookID());
+                System.out.println("Title: " + book.getTitle());
+                System.out.println("Author: " + book.getAuthor());
+                System.out.println("Available: " + (book.isAvailable() ? "Yes" : "No"));
+            }
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Library library = new Library(100);
+
+        while (true) {
+            System.out.println("Library Management System");
+            System.out.println("1. Add Book");
+            System.out.println("2. Display Books");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Book ID: ");
+                    int bookID = scanner.nextInt();
+                    scanner.nextLine(); 
+                    System.out.print("Enter Title: ");
+                    String title = scanner.nextLine();
+                    System.out.print("Enter Author: ");
+                    String author = scanner.nextLine();
+                    Book newBook = new Book(bookID, title, author);
+                    library.addBook(newBook);
+                    break;
+                case 2:
+                    library.displayBooks();
+                    break;
+                case 3:
+                    System.out.println("Exiting the program. Goodbye!");
+             
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
+Output:
+Library Management System
+1. Add Book
+2. Display Books
+3. Exit
+Enter your choice: 1
+Enter Book ID: 876543
+Enter Title: Jack and Jill
+Enter Author: Robert
+Book added successfully!
+Library Management System
+1. Add Book
+2. Display Books
+3. Exit
+Enter your choice: 
+
+
+2)Code:
+import java.util.Scanner;
+
+interface Tax {
+    double SALE_TAX_PERCENTAGE = 0.07;
+    double INCOME_TAX_PERCENTAGE = 0.105;
+
+    double calculateTax();
+}
+
+class Employee implements Tax {
+    private int employeeID;
+    private String name;
+    private double salary;
+
+    public Employee(int employeeID, String name, double salary) {
+        this.employeeID = employeeID;
+        this.name = name;
+        this.salary = salary;
+    }
+
+    @Override
+    public double calculateTax() {
+        return salary * INCOME_TAX_PERCENTAGE;
+    }
+}
+
+class Product implements Tax {
+    private int pid;
+    private double price;
+    private int quantity;
+
+    public Product(int pid, double price, int quantity) {
+        this.pid = pid;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    @Override
+    public double calculateTax() {
+        return price * SALE_TAX_PERCENTAGE * quantity;
+    }
+}
+
+public class Employee2 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Accept employee information
+        System.out.print("Enter Employee ID: ");
+        int employeeID = scanner.nextInt();
+        scanner.nextLine(); // Consume the newline character
+        System.out.print("Enter Employee Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Salary: ");
+        double salary = scanner.nextDouble();
+
+        // Create Employee object
+        Employee employee = new Employee(employeeID, name, salary);
+
+        // Accept product information
+        System.out.print("Enter Product ID: ");
+        int pid = scanner.nextInt();
+        System.out.print("Enter Product Price: ");
+        double price = scanner.nextDouble();
+        System.out.print("Enter Quantity: ");
+        int quantity = scanner.nextInt();
+
+        // Create Product object
+        Product product = new Product(pid, price, quantity);
+
+        // Calculate and display income tax and sale tax
+        double incomeTax = employee.calculateTax();
+        double saleTax = product.calculateTax();
+
+        System.out.println("Income Tax:" + incomeTax);
+        System.out.println("Sale Tax:" + saleTax);
+    }
+}
+Output:
+Enter Employee ID: 56789
+Enter Employee Name: Pravee
+Enter Salary: 300000
+Enter Product ID: 435
+Enter Product Price: 1000
+Enter Quantity: 2
+Income Tax: 31500.0
+Sale Tax: 140.0
+
+
